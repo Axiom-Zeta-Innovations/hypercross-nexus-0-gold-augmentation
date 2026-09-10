@@ -1,0 +1,41 @@
+# Blueprint for this gold repo. After flatten, the app lives at the
+# repository root — leave Root Directory blank in the Render dashboard.
+# Secrets (sync: false) must be set in the dashboard; do not commit values.
+services:
+  - type: web
+    name: hypercross-nexus
+    runtime: node
+    buildCommand: NPM_CONFIG_PRODUCTION=false npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /health/ready
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ALLOW_MAINNET_WRITES
+        value: "false"
+      - key: HYPERCROSS_PUBLIC_URL
+        value: https://hypercross-nexus-0-gold-augmentation.onrender.com
+      - key: ALLOWED_ORIGINS
+        value: https://hypercross-nexus-0-gold-augmentation.onrender.com,https://hypercross-nexus-gold.vercel.app,https://hypercross-nexus-gold-az-apex.vercel.app,https://hypercross-nexus-gold-git-main-az-apex.vercel.app
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ENCRYPTION_KEY
+        sync: false
+      - key: CHAINSTACK_RPC_URL
+        sync: false
+      - key: CHAINSTACK_WSS_URL
+        sync: false
+      - key: ZEROX_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_RESEARCH
+        sync: false
+      - key: STRIPE_PRICE_TRADER
+        sync: false
+      - key: STRIPE_PRICE_PRO
+        sync: false

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyper-Cross Nexus</title>
+  </head>
+  <body>
+    <div id="root" style="min-height:100vh;background:#050505;color:#fff;font-family:system-ui,sans-serif;padding:32px">
+      <p id="bootstrap-status">Loading Hyper-Cross Nexus...</p>
+    </div>
+    <script>
+      window.addEventListener("error", function (event) {
+        var status = document.getElementById("bootstrap-status");
+        if (!status) return;
+        var target = event.target;
+        if (target instanceof HTMLScriptElement && target.src) {
+          status.textContent = "The application could not load its JavaScript asset: " + target.src;
+        } else {
+          // Module evaluation errors (syntax/runtime) report target as window, not the script element.
+          var errorMessage = (event.error && event.error.message) || event.message;
+          status.textContent = "The application encountered a JavaScript error while starting: " + errorMessage;
+        }
+        status.style.color = "#fca5a5";
+      }, true);
+    </script>
+    <script>
+      window.setTimeout(function () {
+        var status = document.getElementById("bootstrap-status");
+        if (status) {
+          status.textContent = "The application did not start. Check the browser console and verify the deployed JavaScript assets are reachable.";
+          status.style.color = "#fca5a5";
+        }
+      }, 8000);
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

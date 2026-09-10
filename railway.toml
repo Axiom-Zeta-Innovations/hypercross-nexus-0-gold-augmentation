@@ -1,0 +1,17 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm ci && NODE_OPTIONS='--max-old-space-size=4096' npm run build"
+
+[deploy]
+startCommand = "npm run start"
+healthcheckPath = "/health/ready"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+
+# Required environment variables (set actual values in the Railway dashboard,
+# never commit them here): DATABASE_URL, JWT_SECRET, ENCRYPTION_KEY,
+# CHAINSTACK_RPC_URL, CHAINSTACK_WSS_URL, STRIPE_SECRET_KEY,
+# STRIPE_WEBHOOK_SECRET, STRIPE_PRICE_RESEARCH, STRIPE_PRICE_TRADER,
+# STRIPE_PRICE_PRO, ALLOWED_ORIGINS, HYPERCROSS_PUBLIC_URL.
+# See .env.example and docs/DEPLOYMENT.md for the full list.
